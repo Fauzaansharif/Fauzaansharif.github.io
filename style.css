@@ -1,0 +1,28 @@
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #0a0a0a;
+  color: #e2e8f0;
+}
+
+.glass-card-header {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease-out; /* Smooth transition for 3D effect */
+}
+
+.skill-tag {
+  background-color: #334155;
+  color: #cbd5e1;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
