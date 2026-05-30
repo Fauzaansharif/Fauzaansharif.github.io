@@ -3,249 +3,485 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fauzaan Sharif | Web & Software Developer</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Fauzaan Sharif — Full-Stack Developer</title>
     <link rel="icon" href="logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   </head>
   <body>
-    <!-- Header -->
-    <header class="main-header">
-      <div class="container">
-        <a href="#" class="logo">Fauzaan Sharif</a>
-        <nav class="main-nav">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button id="menu-btn" class="menu-button">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="mobile-nav hidden">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </header>
+    <!-- Three.js canvas (neural net bg) -->
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Spotlight cursor -->
+    <div id="spotlight"></div>
+
+    <!-- Scroll progress bar -->
+    <div id="prog"></div>
+
+    <!-- ======== NAV ======== -->
+    <nav id="main-nav">
+      <a href="#hero" class="nav-logo">FS</a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#ongoing">Ongoing</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="fauzaanSharifResume.pdf" target="_blank" class="nav-resume"
+        >Resume ↗</a
+      >
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <a href="#projects" class="drawer-link">Projects</a>
+      <a href="#ongoing" class="drawer-link">Ongoing</a>
+      <a href="#skills" class="drawer-link">Skills</a>
+      <a href="#contact" class="drawer-link">Contact</a>
+      <a href="fauzaanSharifResume.pdf" target="_blank" class="drawer-link"
+        >Resume ↗</a
+      >
+    </div>
 
     <main>
-      <!-- Hero Section -->
-      <section id="about" class="hero-section">
-        <div class="container text-center">
-          <h1>
-            <span class="gradient-text">Full-Stack Developer</span> & Software
-            Engineer
-          </h1>
-          <p class="hero-subtitle">
-            Final-year ECS student from Rizvi College of Engineering,
-            specializing in the MERN stack and Java (DSA). Passionate about
-            building Scalable, Responsive Web Applications and DSA.
-          </p>
-          <div class="hero-buttons">
-            <a
-              href="fauzaanSharifResume.pdf"
-              target="_blank"
-              class="btn btn-primary"
-              >Resume</a
-            >
-            <a
-              href="https://github.com/Fauzaansharif"
-              target="_blank"
-              class="btn btn-secondary"
-              >GitHub</a
-            >
-            <a
-              href="https://www.linkedin.com/in/fauzaansharif?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-              target="_blank"
-              class="btn btn-secondary"
-              >LinkedIn</a
-            >
+      <!-- ======== HERO ======== -->
+      <section id="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <div class="eyebrow reveal">
+                <span class="avail-dot"></span>
+                Actively looking for Opportunities
+              </div>
+              <h1 class="hero-name reveal d1">
+                Fauzaan
+                <span class="hero-name-accent">Sharif</span>
+              </h1>
+              <div class="hero-typed reveal d2">
+                <span id="typed"></span><span class="typed-cursor"></span>
+              </div>
+              <p class="hero-desc reveal d3">
+                Electronics & Computer Science graduate from Rizvi College of
+                Engineering, specializing in the MERN stack and Java (DSA).
+                Passionate about building Scalable, Responsive Web Applications
+                and DSA.
+              </p>
+              <div class="hero-cta reveal d4">
+                <a href="#projects" class="btn btn-fill">View Projects ↓</a>
+                <a
+                  href="https://github.com/Fauzaansharif"
+                  target="_blank"
+                  class="btn btn-ghost"
+                  >GitHub ↗</a
+                >
+                <a
+                  href="https://www.linkedin.com/in/fauzaansharif"
+                  target="_blank"
+                  class="btn btn-ghost"
+                  >LinkedIn ↗</a
+                >
+              </div>
+            </div>
+
+            <!-- CSS 3D nested spinning cube -->
+            <div class="hero-3d reveal d2">
+              <div class="cube-scene">
+                <span class="cube-ring r1"></span>
+                <span class="cube-ring r2"></span>
+                <div class="cube-wrap">
+                  <div class="cube">
+                    <div class="cf f"></div>
+                    <div class="cf bk"></div>
+                    <div class="cf l"></div>
+                    <div class="cf r"></div>
+                    <div class="cf t"></div>
+                    <div class="cf bo"></div>
+                    <div class="cube-inner">
+                      <div class="cf f"></div>
+                      <div class="cf bk"></div>
+                      <div class="cf l"></div>
+                      <div class="cf r"></div>
+                      <div class="cf t"></div>
+                      <div class="cf bo"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Projects Section -->
-      <section id="projects" class="projects-section">
+      <!-- ======== COMPLETED PROJECTS ======== -->
+      <section id="projects">
         <div class="container">
-          <div class="text-center section-header">
-            <h2>My Projects</h2>
-            <p>
-              A curated collection of production-ready projects, ranging from
-              scalable full-stack architectures to intelligent hardware
-              integrations.
+          <div class="sec-head">
+            <div class="sec-label reveal">01 — Completed Projects</div>
+            <h2 class="sec-title reveal d1">Things I've Built</h2>
+            <p class="sec-sub reveal d2">
+              Production-ready systems — from distributed backend architectures
+              to AI-powered biometric tools and autonomous hardware.
             </p>
           </div>
-          <div class="project-grid">
-            <!-- Project 1: Dark Store Load Balancer -->
-            <div class="glass-card">
-              <div class="card-content">
-                <h3>Dark Store Load Balancer</h3>
-                <a href="https://darkstoreloadbalancer.vercel.app/">See here</a>
-                <p>
-                  A Full Stacks system designed to efficiently distribute
-                  incoming traffic for a dark store's order processing API,
-                  ensuring high availability and optimal performance during peak
-                  loads.
-                </p>
-                <div class="tags-container">
-                  <span class="skill-tag">MERN Stack</span>
-                  <span class="skill-tag">Node.js</span>
-                  <span class="skill-tag">Express.js</span>
-                  <span class="skill-tag">System Design</span>
-                </div>
+
+          <div class="proj-grid">
+            <!-- Dark Store Load Balancer -->
+            <div class="proj-card reveal d1">
+              <div class="proj-type">
+                <span class="type-dot cyan"></span>Full-Stack · System Design
               </div>
-            </div>
-            <!-- Project 2: Rizvi Book Bank -->
-            <div class="glass-card">
-              <div class="card-content">
-                <h3>Rizvi Book Bank</h3>
-                <a href="https://fauzaansharif.github.io/rizvi-bookbank/"
-                  >See here</a
+              <h3 class="proj-title">Dark Store Load Balancer</h3>
+              <a
+                href="https://darkstoreloadbalancer.vercel.app/"
+                target="_blank"
+                class="proj-link"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
                 >
-                <p>
-                  A full-stack digital platform for college students to share
-                  and reuse course books. Features user authentication, book
-                  listings, and a one-time payment system for affordability and
-                  sustainability.
-                </p>
-                <div class="tags-container">
-                  <span class="skill-tag">MERN Stack</span>
-                  <span class="skill-tag">SQL</span>
-                  <span class="skill-tag">Node.js</span>
-                </div>
+                  <path
+                    d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"
+                  />
+                </svg>
+                darkstoreloadbalancer.vercel.app
+              </a>
+              <p class="proj-desc">
+                A distributed traffic management system for dark store
+                order-processing APIs. Routes incoming requests across multiple
+                backend nodes using round-robin and weighted strategies with
+                real-time health checks — maintaining zero downtime and optimal
+                throughput during peak delivery windows.
+              </p>
+              <div class="proj-tags">
+                <span class="tag tag-c">MERN Stack</span>
+                <span class="tag tag-c">Node.js</span>
+                <span class="tag tag-c">Express.js</span>
+                <span class="tag tag-c">4 Load Balancing Algorithms</span>
+                <span class="tag tag-c">System Design</span>
               </div>
             </div>
 
-            <!-- Project 3: Facial Attendance Monitoring systen -->
-            <div class="glass-card">
-              <div class="card-content">
-                <h3>Facial Attendance Monitoring systen</h3>
-                <a href="https://fauzaansharif.pythonanywhere.com/">See here</a>
-                <p>
-                  A production-ready biometric solution leveraging deep learning
-                  for instant identity verification. It processes live video
-                  feeds to automate attendance logging and generate real-time
-                  reports, eliminating manual error and proxy entries
-                </p>
-                <div class="tags-container">
-                  <span class="skill-tag">MERN Stack</span>
-                  <span class="skill-tag">SQL</span>
-                  <span class="skill-tag">OpenCV</span>
-                  <span class="skill-tag">Dlib</span>
-                  <span class="skill-tag">Basic python</span>
-                </div>
+            <!-- Rizvi Book Bank -->
+            <div class="proj-card reveal d2">
+              <div class="proj-type">
+                <span class="type-dot cyan"></span>Full-Stack · Community
+              </div>
+              <h3 class="proj-title">Rizvi Book Bank</h3>
+              <a
+                href="https://fauzaansharif.github.io/rizvi-bookbank/"
+                target="_blank"
+                class="proj-link"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"
+                  />
+                </svg>
+                fauzaansharif.github.io/rizvi-bookbank
+              </a>
+              <p class="proj-desc">
+                A peer-to-peer digital marketplace for college students to list,
+                discover, and buy second-hand course books at reduced prices.
+                Features JWT authentication, book condition ratings,
+                subject-based filtering, and a one-time payment integration —
+                cutting textbook costs and promoting campus sustainability.
+              </p>
+              <div class="proj-tags">
+                <span class="tag tag-c">MERN Stack</span>
+                <span class="tag tag-c">SQL</span>
+                <span class="tag tag-c">Node.js</span>
+                <span class="tag tag-c">JWT Auth</span>
               </div>
             </div>
-            <!-- Project 4: Miniature Self Driving Car -->
-            <div class="glass-card">
-              <div class="card-content">
-                <h3>Mini Tesla - Miniature Self Driving Car</h3>
-                <p>
-                  An autonomous, obstacle-avoiding car capable of path tracking
-                  for short automated deliveries. Built using an Arduino
-                  microcontroller, integrating ultrasonic and infrared sensors
-                  for environmental awareness.
-                </p>
-                <div class="tags-container">
-                  <span class="skill-tag">Arduino</span>
-                  <span class="skill-tag">C/C++</span>
-                  <span class="skill-tag">ULtra sonic and IR Sensors</span>
-                  <span class="skill-tag">IoT</span>
-                </div>
+
+            <!-- Facial Attendance System -->
+            <div class="proj-card reveal d3">
+              <div class="proj-type">
+                <span class="type-dot violet"></span>Machine Learning · Python
+              </div>
+              <h3 class="proj-title">Facial Attendance System</h3>
+              <a
+                href="https://fauzaansharif.pythonanywhere.com/"
+                target="_blank"
+                class="proj-link"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"
+                  />
+                </svg>
+                fauzaansharif.pythonanywhere.com
+              </a>
+              <p class="proj-desc">
+                A deployed biometric attendance platform that processes live
+                webcam feeds using OpenCV for face detection and dlib's 128-D
+                face encodings for identity verification. Auto-logs timestamped
+                records, generates Excel/CSV reports, and provides an admin
+                dashboard — eliminating proxy attendance with high accuracy.
+              </p>
+              <div class="proj-tags">
+                <span class="tag tag-v">Python</span>
+                <span class="tag tag-v">OpenCV</span>
+                <span class="tag tag-v">Dlib</span>
+                <span class="tag tag-v">Flask</span>
+                <span class="tag tag-c">SQL</span>
+              </div>
+            </div>
+
+            <!-- Mini Tesla -->
+            <div class="proj-card reveal d4">
+              <div class="proj-type">
+                <span class="type-dot coral"></span>Hardware · IoT
+              </div>
+              <h3 class="proj-title">Mini Tesla — Autonomous Car</h3>
+              <p class="proj-desc">
+                A prototype autonomous delivery robot built on an Arduino Uno
+                microcontroller. HC-SR04 ultrasonic sensors handle obstacle
+                detection while IR sensors enable line-tracking for mapped-path
+                navigation. A state-machine algorithm drives stop, steer, and
+                continue decisions across a controlled short-range delivery
+                course.
+              </p>
+              <div class="proj-tags">
+                <span class="tag tag-r">Arduino</span>
+                <span class="tag tag-r">C / C++</span>
+                <span class="tag tag-r">Ultrasonic Sensors</span>
+                <span class="tag tag-r">IR Sensors</span>
+                <span class="tag tag-r">IoT</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Skills Section -->
-      <section id="skills" class="skills-section">
+      <!-- ======== ONGOING PROJECTS ======== -->
+      <section id="ongoing">
         <div class="container">
-          <div class="text-center section-header">
-            <h2>Technical Skills</h2>
-            <p>My ever-growing toolkit for development.</p>
+          <div class="sec-head">
+            <div class="sec-label reveal">02 — Ongoing</div>
+            <h2 class="sec-title reveal d1">Currently Building</h2>
+            <p class="sec-sub reveal d2">
+              Active projects in development — shipping real solutions for real
+              institutions.
+            </p>
           </div>
-          <div class="skills-container">
-            <div class="skills-category">
-              <h3>Languages & DSA</h3>
-              <div class="tags-container">
-                <span class="skill-tag"
-                  >Java (Primary Programming language)</span
-                >
-                <span class="skill-tag">Data Structures & Algorithms</span>
+
+          <div class="ongoing-grid">
+            <!-- Al Salam CMS -->
+            <div class="ongoing-card reveal d1">
+              <div class="ongoing-badge">
+                <span class="badge-dot"></span> In Progress
               </div>
-            </div>
-            <div class="skills-category">
-              <h3>Frontend</h3>
-              <div class="tags-container">
-                <span class="skill-tag">JavaScript </span>
-                <span class="skill-tag">HTML5</span>
-                <span class="skill-tag">CSS3</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Responsive Design</span>
+              <div class="ongoing-left">
+                <div class="proj-type">
+                  <span class="type-dot cyan"></span>Full-Stack · CMS · EdTech
+                </div>
+                <h3 class="proj-title">Al Salam English School — CMS</h3>
+                <p class="proj-desc">
+                  A custom Content Management System being built for Al Salam
+                  English School — my own primary school. The platform lets
+                  school administrators manage notices, events, gallery content,
+                  and staff information through a secure admin portal, while
+                  parents and students browse a clean public-facing website.
+                  Includes role-based access control and a real-time
+                  announcement feed.
+                </p>
+                <div class="proj-tags" style="margin-top: 1.2rem">
+                  <span class="tag tag-c">MERN Stack</span>
+                  <span class="tag tag-c">React</span>
+                  <span class="tag tag-c">Node.js</span>
+                  <span class="tag tag-c">MongoDB</span>
+                  <span class="tag tag-c">Express.js</span>
+                  <span class="tag tag-c">Local Storage</span>
+                  <span class="tag tag-c">RBAC</span>
+                </div>
               </div>
-            </div>
-            <div class="skills-category">
-              <h3>Backend & Database</h3>
-              <div class="tags-container">
-                <span class="skill-tag">Node.js</span>
-                <span class="skill-tag">Express.js</span>
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">REST APIs</span>
-              </div>
-            </div>
-            <div class="skills-category">
-              <h3>Tools & Platforms</h3>
-              <div class="tags-container">
-                <span class="skill-tag">Git & GitHub</span>
-                <span class="skill-tag">LeetCode</span>
-                <span class="skill-tag">Arduino</span>
+              <div class="ongoing-right">
+                <div class="progress-block">
+                  <div class="progress-label">
+                    <span>Overall Progress</span>
+                    <span class="progress-pct">60%</span>
+                  </div>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" data-width="60"></div>
+                  </div>
+                </div>
+                <div class="progress-block">
+                  <div class="progress-label">
+                    <span>Admin Portal</span>
+                    <span class="progress-pct">75%</span>
+                  </div>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" data-width="75"></div>
+                  </div>
+                </div>
+                <div class="progress-block">
+                  <div class="progress-label">
+                    <span>Public Site</span>
+                    <span class="progress-pct">50%</span>
+                  </div>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" data-width="50"></div>
+                  </div>
+                </div>
+                <div class="progress-block">
+                  <div class="progress-label">
+                    <span>API & Auth</span>
+                    <span class="progress-pct">80%</span>
+                  </div>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" data-width="80"></div>
+                  </div>
+                </div>
+                <div class="ongoing-meta">
+                  <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-val">Al Salam English School</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">Status</span>
+                    <span class="meta-val status-active"
+                      >Active Development</span
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Contact Section -->
-      <section id="contact" class="contact-section">
-        <div class="container text-center">
-          <h2>Get In Touch</h2>
-          <p>
-            I'm currently looking for new opportunities. Whether you have a
-            question or just want to say hi, my inbox is always open!
-          </p>
-          <a
-            href="mailto:fauzaanshaikh102@gmail.com?subject=Job%20opportunity%20offer"
-            class="btn btn-primary"
-          >
-            Say Hello!!
-          </a>
+      <!-- ======== SKILLS ======== -->
+      <section id="skills">
+        <div class="container">
+          <div class="sec-head">
+            <div class="sec-label reveal">03 — Skills</div>
+            <h2 class="sec-title reveal d1">Technical Arsenal</h2>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-group reveal d1">
+              <div class="sk-cat-label">Languages & DSA</div>
+              <div class="sk-pills">
+                <span class="sk-pill">Java</span>
+                <span class="sk-pill">JavaScript</span>
+                <!-- <span class="sk-pill">Python</span> -->
+                <!-- <span class="sk-pill">C / C++</span> -->
+                <span class="sk-pill">Data Structures</span>
+                <span class="sk-pill">Algorithms</span>
+              </div>
+            </div>
+
+            <div class="skill-group reveal d2">
+              <div class="sk-cat-label">Frontend</div>
+              <div class="sk-pills">
+                <span class="sk-pill">React</span>
+                <span class="sk-pill">HTML5</span>
+                <span class="sk-pill">CSS3</span>
+                <span class="sk-pill">JavaScript ES6+</span>
+                <span class="sk-pill">Responsive Design</span>
+              </div>
+            </div>
+
+            <div class="skill-group reveal d3">
+              <div class="sk-cat-label">Backend & Database</div>
+              <div class="sk-pills">
+                <span class="sk-pill">Node.js</span>
+                <span class="sk-pill">Express.js</span>
+                <span class="sk-pill">MongoDB</span>
+                <span class="sk-pill">MySQL</span>
+                <span class="sk-pill">REST APIs</span>
+                <span class="sk-pill">JWT Auth</span>
+              </div>
+            </div>
+
+            <div class="skill-group reveal d4">
+              <div class="sk-cat-label">Tools & Platforms</div>
+              <div class="sk-pills">
+                <span class="sk-pill">Git & GitHub</span>
+                <span class="sk-pill">Arduino IDE</span>
+                <span class="sk-pill">OpenCV</span>
+                <span class="sk-pill">Vercel</span>
+                <span class="sk-pill">PythonAnywhere</span>
+                <span class="sk-pill">LeetCode</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== CONTACT ======== -->
+      <section id="contact">
+        <div class="container">
+          <div class="contact-bg-text">04</div>
+          <div class="contact-inner">
+            <div class="sec-label reveal">Let's Connect</div>
+            <h2 class="sec-title reveal d1">Get In Touch</h2>
+            <p class="sec-sub reveal d2">
+              Open to full-time roles, freelance projects, and collaborations.
+              Whether you have an opportunity or just want to say hi — my inbox
+              is always open.
+            </p>
+            <a
+              href="mailto:fauzaanshaikh102@gmail.com?subject=Opportunity"
+              class="email-link reveal d3"
+            >
+              Send a Mail->
+            </a>
+            <div class="contact-btns reveal d4">
+              <a
+                href="fauzaanSharifResume.pdf"
+                target="_blank"
+                class="btn btn-fill"
+                >Download Resume</a
+              >
+              <a
+                href="https://github.com/Fauzaansharif"
+                target="_blank"
+                class="btn btn-ghost"
+                >GitHub ↗</a
+              >
+              <a
+                href="https://www.linkedin.com/in/fauzaansharif"
+                target="_blank"
+                class="btn btn-ghost"
+                >LinkedIn ↗</a
+              >
+            </div>
+          </div>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-      <div class="container text-center">
-        <p>&copy; 2025 Fauzaan Sharif. All Rights Reserved.</p>
-      </div>
+    <footer>
+      <span>© 2025 Fauzaan Sharif. All Rights Reserved.</span>
+      <span>ECS Graduate — Rizvi College of Engineering, Mumbai</span>
     </footer>
 
     <script src="script.js" defer></script>
