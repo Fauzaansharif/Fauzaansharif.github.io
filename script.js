@@ -203,7 +203,7 @@
     "MERN Stack Engineer",
     "ECS Graduate",
     "Java DSA Practitioner",
-    "IoT & Hardware Builder",
+    // "IoT & Hardware Builder",
     "Open to New Roles 👋",
   ];
 
