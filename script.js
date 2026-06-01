@@ -1,9 +1,4 @@
 /* ============================================================
-   FAUZAAN SHARIF — PORTFOLIO SCRIPTS
-   script.js
-   ============================================================ */
-
-/* ============================================================
    THREE.JS — Animated Neural Network Particle Background
    ============================================================ */
 (function initThree() {
@@ -203,8 +198,7 @@
     "MERN Stack Engineer",
     "ECS Graduate",
     "Java DSA Practitioner",
-    // "IoT & Hardware Builder",
-    "Open to New Roles 👋",
+    "Open to New Roles ",
   ];
 
   let pi = 0,
@@ -260,13 +254,7 @@
 })();
 
 /* ============================================================
-   3D CARD TILT — Fixed version
-   
-   Root cause of the previous bug:
-     overflow:hidden on the card was flattening the 3D context.
-     That's been removed in style.css. The JS below directly sets
-     the card's inline transform using pointer coordinates,
-     with a fast ease-out transition defined in CSS.
+   3D CARD TILT 
    ============================================================ */
 (function initCardTilt() {
   const STRENGTH = 9; // max tilt degrees
